@@ -1,0 +1,92 @@
+//<cmath> included
+
+#include <iostream>
+#include<cmath>
+using namespace std;
+int main() {
+	
+	//I have inputed new variables for every new center and radius,
+	//so that it is easier to understand, even though it is not needed
+	double x, y;
+	double x1, y1, r1;
+	double x2, y2, r2;
+	cin >> x >> y;
+	double r = sqrt(pow(x,2) + pow(y,2));//Formula for the length of a circumference
+
+	if (x > 4 || y > 4 || x < -4 || y < -4) {//Outside of the square
+		cout << "Outside" << endl;
+		goto Krai;
+	}
+	/*
+	The program ends earlier, because this condition coinsides with another one later.Same with the other cases later
+	*/
+	if (r == 4 || x == 4 || x == -4 || y == 4 || y == -4) {//Condition the coordinate to be undefined
+		cout << "Undefined" << endl;
+		goto Krai;
+	}
+	if ((x<4 || x>-4) && (y<4 || y>-4) && r > 4) {
+		//Condition the coordinate to be outside the circle, but inside the square
+		cout << "White" << endl;
+	}
+	if (x == 0 && y == 0) {//The center
+		cout << "Undefined" << endl;
+	}
+	if (x == 0 && y > 0) {//On the Y-axis
+		cout << "White" << endl;
+	}
+	if (x == 0 && y < 0) {//On the Y-axis
+		cout << "Black" << endl;
+	}
+	/*
+	The graphic moves with 2 on the X - axis to the right, so that 
+	the center becomes(x1, y1) = (2, 0)(the center of the little circles on the right)
+	The radius is calculated on the new center and based on its length
+	it is determined where the coordinate is
+	*/
+	if (x > 0) {
+		x1 = 2;
+		y1 = 0;
+		r1 = sqrt(pow(x - x1, 2) + pow(y - y1, 2));
+		if (r1 == 1 || (y < 0 && r1 == 2)) {
+			cout << "Undefined" << endl;
+			goto Krai;
+		}
+		if (r1 < 1 || r1 == 0) {
+			cout << "Black" << endl;
+		}
+		if (r1 > 1 && r1 <= 2) {
+			cout << "White" << endl;
+		}
+		if (r1 > 2 && y < 0 && r<4) {
+			cout << "Black" << endl;
+		 }
+		if(r1>2 && y>0 && r<4){
+			cout << "White" << endl; }
+	}
+
+	//By analogy with before the graphic moves to the left,
+	//so that the center becomes (x2,y2)=(-2,0)
+	if (x < 0) {
+		x2 = -2;
+		y2 = 0;
+		r2 = sqrt(pow(x - x2, 2) + pow(y - y2, 2));
+		if (r2 == 1 || (y > 0 && r2 == 2)) {
+			cout << "Undefined" << endl;
+			goto Krai;
+		}
+		if (r2 < 1 || r2 == 0) {
+			cout << "White" << endl;
+		}
+		if (r2 > 1 && r2 <= 2) {
+			cout << "Black" << endl;
+		}
+		if (r2 > 2 && y < 0 && r < 4) {
+			cout << "Black" << endl;
+		}
+		if (r2 > 2 && y > 0 && r < 4) {
+			cout << "White" << endl;
+		}
+	}
+	Krai:
+	return 0;
+}
